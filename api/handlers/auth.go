@@ -11,7 +11,7 @@ import (
 func (h *Handler) CreateAuth(ctx *gin.Context) {
 
 	log := logger.NewLogger("", logger.LevelDebug)
-	var req product_service.AuthorUpdateReq
+	var req product_service.AuthorCreateReq
 
 	ctx.BindJSON(&req)
 

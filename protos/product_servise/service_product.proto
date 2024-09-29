@@ -6,7 +6,7 @@ import "messages_product.proto";
 
 
 service Product_service {
-    rpc CreateAuth (AuthorUpdateReq) returns (Author);
+    rpc CreateAuth (AuthorCreateReq) returns (Author);
     rpc GetAuth(GetByIdReq)returns(Author);
     rpc GetAuths(GetListReq)returns(AuthorGetListResp);
     rpc UpdateAuth(AuthorUpdateReq)returns (Author);

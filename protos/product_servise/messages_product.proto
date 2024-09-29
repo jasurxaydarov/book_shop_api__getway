@@ -1,6 +1,7 @@
 syntax = "proto3";
 
 package product_service;
+import "google/protobuf/timestamp.proto";  // Import Timestamp
 
 option go_package = "genproto/product_service";
 
@@ -36,6 +37,9 @@ message Author {
     string author_id = 1;
     string author_name = 2;
     string bio = 3;
+    google.protobuf.Timestamp created_at = 4;  // Use Timestamp for date and time
+    google.protobuf.Timestamp updated_at = 5;
+    google.protobuf.Timestamp deleted_at = 6;
 }
 
 message AuthorGetListResp {
@@ -46,15 +50,26 @@ message AuthorGetListResp {
 message AuthorUpdateReq {
     string author_name = 1;
     string bio = 2;
+    string author_id = 3;
+    google.protobuf.Timestamp updated_at = 4;
+
+
+}
+
+message AuthorCreateReq {
+    string author_name = 1;
+    string bio = 2;
+    google.protobuf.Timestamp updated_at = 3;
+
 }
 
 message Category {
     string category_id = 1;
     string category_name = 2;
     string description = 3;     // Fixed spelling from "discription" to "description"
-    string created_at = 4;
-    string updated_at = 5;
-    string deleted_at = 6;
+    google.protobuf.Timestamp created_at = 4;  // Use Timestamp for date and time
+    google.protobuf.Timestamp updated_at = 5;
+    google.protobuf.Timestamp deleted_at = 6;
 }
 
 message CategoryCreateReq {
@@ -71,7 +86,10 @@ message CategoryGetListResp {
 message CategoryUpdateReq {
     string category_name = 1;
     string description = 2;     // Fixed spelling from "discription" to "description"
-    string updated_at = 3;
+    google.protobuf.Timestamp updated_at = 3;
+    string category_id = 4;
+
+
 }
 
 message Book {
@@ -83,9 +101,9 @@ message Book {
     int32 stock = 6;
     string description = 7;
     string published_date = 8;
-    string created_at = 9;
-    string updated_at = 10;
-    string deleted_at = 11;
+    google.protobuf.Timestamp created_at = 9;  // Use Timestamp for date and time
+    google.protobuf.Timestamp updated_at = 10;
+    google.protobuf.Timestamp deleted_at = 11;
 }
 
 message BookCreateReq {
@@ -111,7 +129,9 @@ message BookUpdateReq {
     int32 stock = 5;
     string description = 6;
     string published_date = 7;
-    string updated_at = 8;
+    google.protobuf.Timestamp deleted_at = 8;
+    string book_id = 9;
+
 }
 
 message Order {
@@ -119,8 +139,9 @@ message Order {
     string user_id = 2;
     double total_amount = 3;
     string order_status = 4;
-    string created_at = 5;
-    string deleted_at = 6;
+    google.protobuf.Timestamp created_at = 5;  // Use Timestamp for date and time
+    google.protobuf.Timestamp updated_at = 6;
+    google.protobuf.Timestamp deleted_at = 7;
 }
 message OrderCreateReq {
   
@@ -134,6 +155,10 @@ message OrderUpdateReq {
     string user_id = 1;
     double total_amount = 2;
     string order_status = 3;
+    google.protobuf.Timestamp updated_at = 4;
+    string order_id = 5;
+
+
 }
 
 message OrderGetListResp {
@@ -147,8 +172,10 @@ message OrderItem {
     string book_id = 3;
     int32 quantity = 4;
     double price = 5;
-    string deleted_at = 6;
-    string user_id = 7;
+    google.protobuf.Timestamp created_at = 6;  // Use Timestamp for date and time
+    google.protobuf.Timestamp updated_at = 7;
+    google.protobuf.Timestamp deleted_at = 8;
+    string user_id = 9;
 }
 
 message OrderItemCreateReq {
@@ -157,6 +184,17 @@ message OrderItemCreateReq {
     int32 quantity = 3;
     double price = 4;
     string user_id = 5;
+
+}
+message OrderItemUpdate {
+    string order_id = 1;
+    string book_id = 2;
+    int32 quantity = 3;
+    double price = 4;
+    string user_id = 5;
+    string order_item_id = 6;
+    google.protobuf.Timestamp updated_at = 7;
+
 
 }
 

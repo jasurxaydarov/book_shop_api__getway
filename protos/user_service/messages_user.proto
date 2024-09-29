@@ -48,7 +48,7 @@ message UserCreateReq {
     string username = 1;
     string email = 2;
     string password = 3;
-    string full_name = 4;
+    string fullname = 4;
     string user_role = 5;          // Remove [default = false], default is false in proto3
     string otp=6;
 }
@@ -68,7 +68,7 @@ message UserUpdateReq {
     string username = 2;
     string email = 3;
     string password = 4;
-    string fullname = 5;
+    string full_name = 5;
     string user_role = 6;           // Remove [default = false]
     google.protobuf.Timestamp updated_at = 7;
 }
