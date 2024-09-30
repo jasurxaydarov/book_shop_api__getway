@@ -47,4 +47,56 @@ func (h *Handler) GetAuthById(ctx *gin.Context) {
 
 }
 
+func (h *Handler) GetAuths(ctx *gin.Context) {
 
+	var req product_service.GetListReq
+
+	ctx.BindJSON(&req)
+
+	resp, err := h.service.GetProductSevice().GetAuths(context.Background(), &req)
+
+	if err != nil {
+		ctx.JSON(500, err)
+		return
+	}
+
+	ctx.JSON(201, resp)
+
+}
+
+func (h *Handler) UpdateAuth(ctx *gin.Context) {
+
+	req := product_service.AuthorUpdateReq{}
+
+
+	ctx.BindJSON(&req)
+
+
+	res, err := h.service.GetProductSevice().UpdateAuth(context.Background(), &req)
+
+	if err != nil {
+		ctx.JSON(500, gin.H{"error": err.Error()})
+		return
+	}
+
+	ctx.JSON(201,res)
+
+}
+
+func (h *Handler) DeleteAuth(ctx *gin.Context) {
+
+	req := product_service.DeleteReq{}
+
+
+	ctx.BindJSON(&req)
+
+	_, err := h.service.GetProductSevice().DeleteAuth(context.Background(), &req)
+
+	if err != nil {
+		ctx.JSON(500, gin.H{"error": err.Error()})
+		return
+	}
+
+	ctx.JSON(201,"succssfully deleted")
+
+}

@@ -41,3 +41,61 @@ func (h *Handler) GetBookById(ctx *gin.Context) {
 	ctx.JSON(201, resp)
 
 }
+
+
+
+
+
+func (h *Handler) GetBooks(ctx *gin.Context) {
+
+	var req product_service.GetListReq
+
+	ctx.BindJSON(&req)
+
+	resp, err := h.service.GetProductSevice().GetBooks(context.Background(), &req)
+
+	if err != nil {
+		ctx.JSON(500, err)
+		return
+	}
+
+	ctx.JSON(201, resp)
+
+}
+
+func (h *Handler) UpdateBook(ctx *gin.Context) {
+
+	req := product_service.BookUpdateReq{}
+
+
+	ctx.BindJSON(&req)
+
+
+	res, err := h.service.GetProductSevice().UpdateBook(context.Background(), &req)
+
+	if err != nil {
+		ctx.JSON(500, gin.H{"error": err.Error()})
+		return
+	}
+
+	ctx.JSON(201,res)
+
+}
+
+func (h *Handler) DeleteBook(ctx *gin.Context) {
+
+	req := product_service.DeleteReq{}
+
+
+	ctx.BindJSON(&req)
+
+	_, err := h.service.GetProductSevice().DeleteBook(context.Background(), &req)
+
+	if err != nil {
+		ctx.JSON(500, gin.H{"error": err.Error()})
+		return
+	}
+
+	ctx.JSON(201,"succssfully deleted")
+
+}

@@ -35,7 +35,7 @@ service Product_service {
     rpc GetOrdered_Item(GetByIdReq)returns(OrderItem);
     rpc GetOrdered_ItemByOrderId(GetByIdReq)returns(OrderItemGetListResp);
     rpc GetOrdered_Items(GetListReq)returns(OrderItemGetListResp);
-    rpc UpdateOrdered_Item (OrderItemCreateReq) returns (OrderItem);
+    rpc UpdateOrdered_Item (OrderItemUpdate) returns (OrderItem);
     rpc DeleteOrdered_Item(DeleteReq)returns(Empty);
 
    
