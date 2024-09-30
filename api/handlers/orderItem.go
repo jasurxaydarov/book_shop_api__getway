@@ -5,13 +5,28 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/jasurxaydarov/book_shop_api_getway/genproto/product_service"
+	"github.com/jasurxaydarov/book_shop_api_getway/token"
 )
 
 func (h *Handler) CreateOrderItem(ctx *gin.Context) {
 	var req product_service.OrderItemCreateReq
 
+	tokenString := ctx.GetHeader("authorization")
+
+	if tokenString == "" {
+		ctx.JSON(401, gin.H{"error": "authorization token not provided"})
+		ctx.Abort()
+	}
+
+	claim, err := token.ParseJWT(tokenString)
+	if err != nil {
+		ctx.JSON(401, gin.H{"error": err.Error()})
+		ctx.Abort()
+	}
+
 	ctx.BindJSON(&req)
 
+	req.UserId = claim.UserId
 	resp, err := h.service.GetProductSevice().CreateOrdered_Item(context.Background(), &req)
 
 	if err != nil {
@@ -57,8 +72,6 @@ func (h *Handler) GetOrderItemByOrderId(ctx *gin.Context) {
 
 }
 
-
-
 func (h *Handler) GetOrderItems(ctx *gin.Context) {
 
 	var req product_service.GetListReq
@@ -80,9 +93,7 @@ func (h *Handler) UpdateOrderItem(ctx *gin.Context) {
 
 	req := product_service.OrderItemUpdate{}
 
-
 	ctx.BindJSON(&req)
-
 
 	res, err := h.service.GetProductSevice().UpdateOrdered_Item(context.Background(), &req)
 
@@ -91,14 +102,13 @@ func (h *Handler) UpdateOrderItem(ctx *gin.Context) {
 		return
 	}
 
-	ctx.JSON(201,res)
+	ctx.JSON(201, res)
 
 }
 
 func (h *Handler) DeleteOrderItem(ctx *gin.Context) {
 
 	req := product_service.DeleteReq{}
-
 
 	ctx.BindJSON(&req)
 
@@ -109,6 +119,6 @@ func (h *Handler) DeleteOrderItem(ctx *gin.Context) {
 		return
 	}
 
-	ctx.JSON(201,"succssfully deleted")
+	ctx.JSON(201, "succssfully deleted")
 
 }
