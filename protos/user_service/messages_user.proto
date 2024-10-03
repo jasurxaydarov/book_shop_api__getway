@@ -1,5 +1,5 @@
 syntax = "proto3";
-import "google/protobuf/timestamp.proto";  // Import Timestamp
+
 package user_service;
 
 option go_package = "genproto/user_service";
@@ -38,9 +38,9 @@ message User {
     string password = 4;
     string fullname = 5;
     string user_role = 6; 
-    google.protobuf.Timestamp created_at = 7;  // Use Timestamp for date and time
-    google.protobuf.Timestamp updated_at = 8;
-    google.protobuf.Timestamp deleted_at = 9;
+    string created_at = 7;  // Use Timestamp for date and time
+    string updated_at = 8;
+    string deleted_at = 9;
 }
 
 
@@ -70,7 +70,7 @@ message UserUpdateReq {
     string password = 4;
     string full_name = 5;
     string user_role = 6;           // Remove [default = false]
-    google.protobuf.Timestamp updated_at = 7;
+    string updated_at = 7;
 }
 
 
